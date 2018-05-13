@@ -20,7 +20,7 @@ RandomisingSamplerAudioProcessorEditor::RandomisingSamplerAudioProcessorEditor (
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     addAndMakeVisible (audioSection);
-    addAndMakeVisible (patternSequencer = new PatternSequencer());
+    addAndMakeVisible (patternSequencer = new PatternSequencer(*audioSection));
     addAndMakeVisible(randomiser = new Randomiser());
     setSize (750, 500);
 }

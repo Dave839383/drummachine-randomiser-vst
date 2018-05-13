@@ -9,6 +9,7 @@
 */
 
 #include "PatternSequencer.h"
+#include "AudioSection.h"
 
 void PatternSequencerLookAndFeel::drawButtonText (Graphics& g, TextButton& button, bool isMouseOverButton, bool isButtonDown)
 {
@@ -31,7 +32,7 @@ void PatternSequencerLookAndFeel::drawButtonText (Graphics& g, TextButton& butto
                           Justification::centred, 2);
 }
 
-PatternSequencer::PatternSequencer()
+PatternSequencer::PatternSequencer(AudioSection& a) : audioSection(a)
 {
     int buttonCount = 1;
     char bank = 'A';
@@ -57,7 +58,7 @@ PatternSequencer::PatternSequencer()
         TextButton * t = new TextButton();
         // a label for a button in the pattern sequencer.
         Label * l = new Label();
-        // t->setComponentID(String(i));
+        
         t->setColour(TextButton::buttonOnColourId, Colours::yellow);
         t->setName("patternButton");
         addAndMakeVisible (t);
@@ -137,6 +138,7 @@ void PatternSequencer::buttonClicked(Button* button)
                 {
                     patternButtons[i]->setToggleState(true, dontSendNotification);
                 }
+                // audioSection.updateNoteInCurrentPattern(i, getToggleState);
                 break;
             }
         }

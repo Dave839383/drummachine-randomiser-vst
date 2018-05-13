@@ -31,7 +31,7 @@ void AudioTrackLookAndFeel::drawButtonText (Graphics& g, TextButton& button, boo
                           Justification::centred, 2);
 }
 
-AudioTrack::AudioTrack()
+AudioTrack::AudioTrack() : trackIsSelected(false)
 {
     addAndMakeVisible (openButton);
     openButton.setButtonText ("Open");
@@ -42,6 +42,12 @@ AudioTrack::AudioTrack()
     //playButton.onClick = [this] { ButtonClicked(); };
     
     setLookAndFeel (&audioTrackLookAndFeel);
+    
+    // initialise all notes in the tracks note pattern to off.
+    for (int i = 0; i < notePattern.size(); i++)
+    {
+        notePattern[i] = false;
+    }
 }
 
 AudioTrack::~AudioTrack()
@@ -51,8 +57,16 @@ AudioTrack::~AudioTrack()
 
 void AudioTrack::paint (Graphics& g)
 {
+    if (!trackIsSelected)
+    {
+        g.setColour(Colours::grey);
+    }
+    else
+    {
+        g.setColour(Colours::lightgoldenrodyellow);
+    }
     Rectangle<float> audioName(10, 10, getWidth() - 20, 20);
-    g.setColour(Colours::grey);
+
     g.drawRoundedRectangle(5, 5, getWidth() - 10, getHeight() - 10, 5, 2);
     g.drawRoundedRectangle(audioName, 5, 2);
     Font f("Courier New", 12, Font::plain);
@@ -102,5 +116,16 @@ void AudioTrack::openButtonClicked()
         notify();
     }
      */
+}
+
+void AudioTrack::setTrackIsSelected(bool isSelected)
+{
+    trackIsSelected = isSelected;
+    repaint();
+}
+
+void AudioTrack::updateNote(const int& noteNumber, bool noteIsOn)
+{
+    notePattern[noteNumber] = noteIsOn;
 }
 

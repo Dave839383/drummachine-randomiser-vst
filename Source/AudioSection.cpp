@@ -16,6 +16,8 @@ AudioSection::AudioSection()
     for (int i = 0; i < 8; i++)
     {
         AudioTrack * a = new AudioTrack();
+        a->addMouseListener(this, true);
+        a->setComponentID(String(i));
         addAndMakeVisible (a);
         audioTracks.add(a);
     }
@@ -66,3 +68,26 @@ void AudioSection::releaseResources()
 {
     
 }
+
+void AudioSection::mouseDown (const MouseEvent &event)
+{
+    int trackID = event.originalComponent->getComponentID().getIntValue();
+    setSelectedTrack(trackID);
+    std::cout << trackID << std::endl;
+}
+
+void AudioSection::setSelectedTrack(const int& track)
+{
+    // unselect previously selected track
+    audioTracks[selectedTrack]->setTrackIsSelected(false);
+    // set new selected track
+    selectedTrack = track;
+    audioTracks[track]->setTrackIsSelected(true);
+}
+
+void AudioSection::updateNoteInCurrentPattern(const int& noteNumber, bool noteIsOn)
+{
+    audioTracks[selectedTrack]->updateNote(noteNumber, noteIsOn);
+}
+
+

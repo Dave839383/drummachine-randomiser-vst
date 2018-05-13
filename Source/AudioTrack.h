@@ -12,6 +12,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+
+
 class AudioTrackLookAndFeel : public LookAndFeel_V4
 {
     void drawButtonText (Graphics& g, TextButton& button, bool isMouseOverButton, bool isButtonDown) override;
@@ -36,7 +38,13 @@ public:
     void getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) override;
     
     void openButtonClicked();
+    
+    void setTrackIsSelected(bool isSelected);
+    
+    void updateNote(const int& noteNumber, bool noteIsOn);
 private:
+    std::vector<bool> notePattern;
+    bool trackIsSelected;
     AudioTrackLookAndFeel audioTrackLookAndFeel;
     TextButton openButton;
     TextButton playButton;

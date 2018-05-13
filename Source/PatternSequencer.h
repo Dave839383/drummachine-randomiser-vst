@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "AudioSection.h"
 
 class PatternSequencerLookAndFeel : public LookAndFeel_V4
 {
@@ -22,7 +23,7 @@ class PatternSequencer  : public Component,
                           public Button::Listener
 {
 public:
-    PatternSequencer();
+    PatternSequencer(AudioSection& a);
     
     ~PatternSequencer();
     
@@ -31,7 +32,9 @@ public:
     void resized() override;
     
     void buttonClicked (Button* button) override;
+
 private:
+    AudioSection& audioSection;
     PatternSequencerLookAndFeel patternSequencerLookAndFeel;
     OwnedArray<TextButton> patternButtons;
     OwnedArray<Label> patternButtonLabels;

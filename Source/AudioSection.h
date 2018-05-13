@@ -27,7 +27,15 @@ public:
     void paint (Graphics& g) override;
     
     void resized() override;
+    
+    void setSelectedTrack(const int& track);
+    
+    void updateNoteInCurrentPattern(const int& noteNumber, bool noteIsOn);
 private:
+    void mouseDown (const MouseEvent &event) override;
+    
+    int selectedTrack; // represents the currently selected track in the audioTracks array
+    
     OwnedArray<AudioTrack> audioTracks;
     int expectedSamplesPerBlock;
     double newSampleRate;
